@@ -1,0 +1,20 @@
+{
+  "velero": {
+    "version": "1.18.4",
+    "image": "velero/velero@sha256:c89fb5b6d1fd6afd368e0f483e6f5555fd62851a1eada8ac5c72482e674ca17b"
+  },
+  "aws_plugin": {
+    "version": "1.14.4",
+    "image": "velero/velero-plugin-for-aws@sha256:c85a7fa803569e3128c33e4f5766f84ab156c8d171c9f1dd2715581d45ce98fa"
+  },
+  "s3": {
+    "version": "SeaweedFS 4.48",
+    "image": "chrislusf/seaweedfs@sha256:4e61d15fd35994cb1e43e1e553dff106794841fd9a99ade2fc8c8bfce4d7872d"
+  },
+  "api": {
+    "image": "ghcr.io/tommmdl/docker-lab@sha256:ae2e93fdbab7bc912897e6524b3e17b982e97cfb29bcb4fc36d9c014d615eb91"
+  },
+  "postgres": {
+    "image": "ghcr.io/tommmdl/docker-lab@sha256:8b6813ec76804698c33e4dac8f501ca8f641affcbd27cbc3b7dd6fdb02874fc3"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "errors": [],
+  "source_replica_counts_restored": true,
+  "target_source_api_fence_removed": true,
+  "scope": "Restore the study source after the rehearsal, not a production traffic failback."
+}

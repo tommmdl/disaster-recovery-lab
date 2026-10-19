@@ -1,0 +1,66 @@
+{
+  "apiVersion": "velero.io/v1",
+  "kind": "Backup",
+  "metadata": {
+    "annotations": {
+      "velero.io/resource-timeout": "10m0s",
+      "velero.io/source-cluster-k8s-gitversion": "v1.37.0",
+      "velero.io/source-cluster-k8s-major-version": "1",
+      "velero.io/source-cluster-k8s-minor-version": "37"
+    },
+    "creationTimestamp": "2026-10-19T17:27:39Z",
+    "generation": 1,
+    "labels": {
+      "velero.io/storage-location": "default"
+    },
+    "name": "notes-good-82d760ba",
+    "namespace": "velero",
+    "resourceVersion": "776",
+    "uid": "acbe87d4-f805-4381-9c6c-aab484cd39a9"
+  },
+  "spec": {
+    "csiSnapshotTimeout": "10m0s",
+    "defaultVolumesToFsBackup": false,
+    "excludedResources": [
+      "volumesnapshots.snapshot.storage.k8s.io",
+      "volumesnapshotcontents.snapshot.storage.k8s.io"
+    ],
+    "hooks": {},
+    "includeClusterResources": false,
+    "includedNamespaces": [
+      "backup-demo"
+    ],
+    "includedResources": [
+      "namespaces",
+      "configmaps",
+      "secrets",
+      "services",
+      "deployments.apps",
+      "statefulsets.apps",
+      "persistentvolumeclaims",
+      "pods"
+    ],
+    "itemOperationTimeout": "5m0s",
+    "metadata": {},
+    "snapshotMoveData": false,
+    "snapshotVolumes": false,
+    "storageLocation": "default",
+    "ttl": "168h0m0s",
+    "volumeGroupSnapshotLabelKey": "velero.io/volume-group"
+  },
+  "status": {
+    "completionTimestamp": "2026-10-19T17:11:55Z",
+    "expiration": "2026-10-26T17:11:49Z",
+    "formatVersion": "1.1.0",
+    "hookStatus": {
+      "hooksAttempted": 1
+    },
+    "phase": "Completed",
+    "progress": {
+      "itemsBackedUp": 11,
+      "totalItems": 11
+    },
+    "startTimestamp": "2026-10-19T17:11:49Z",
+    "version": 1
+  }
+}

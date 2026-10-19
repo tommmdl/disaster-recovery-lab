@@ -1,0 +1,7 @@
+{
+  "velero": {
+    "version": "1.18.4",
+    "url": "https://github.com/vmware-tanzu/velero/releases/download/v1.18.4/velero-v1.18.4-linux-amd64.tar.gz",
+    "sha256": "e520c17d8997e1c9d0a28ae013592e4473ca3bd82cb3acd132e51286263f74bf"
+  }
+}

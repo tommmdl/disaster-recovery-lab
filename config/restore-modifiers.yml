@@ -1,0 +1,19 @@
+version: v1
+resourceModifierRules:
+  - conditions:
+      groupResource: persistentvolumeclaims
+      resourceNameRegex: '^logical-backup$'
+      namespaces: [backup-demo]
+    patches:
+      - operation: remove
+        path: /spec/volumeName
+      - operation: replace
+        path: /spec/storageClassName
+        value: dr-local-dump
+  - conditions:
+      groupResource: pods
+      resourceNameRegex: '^backup-client$'
+      namespaces: [backup-demo]
+    mergePatches:
+      - patchData: |
+          {"spec":{"nodeName":null,"nodeSelector":null,"affinity":null}}

@@ -1,0 +1,55 @@
+{
+  "apiVersion": "velero.io/v1",
+  "kind": "Restore",
+  "metadata": {
+    "creationTimestamp": "2026-10-19T17:27:41Z",
+    "finalizers": [
+      "restores.velero.io/external-resources-finalizer"
+    ],
+    "generation": 6,
+    "name": "cross-cluster-90e0bb82",
+    "namespace": "velero",
+    "resourceVersion": "913",
+    "uid": "bf2804cd-a174-4b54-aad1-6f8eba4607a5"
+  },
+  "spec": {
+    "backupName": "notes-good-82d760ba",
+    "excludedResources": [
+      "nodes",
+      "events",
+      "events.events.k8s.io",
+      "backups.velero.io",
+      "restores.velero.io",
+      "resticrepositories.velero.io",
+      "csinodes.storage.k8s.io",
+      "volumeattachments.storage.k8s.io",
+      "backuprepositories.velero.io"
+    ],
+    "hooks": {},
+    "includeClusterResources": false,
+    "includedNamespaces": [
+      "*"
+    ],
+    "itemOperationTimeout": "5m0s",
+    "namespaceMapping": {
+      "backup-demo": "dr-notes"
+    },
+    "resourceModifier": {
+      "apiGroup": "",
+      "kind": "configmap",
+      "name": "dr-restore-modifiers"
+    },
+    "uploaderConfig": {}
+  },
+  "status": {
+    "completionTimestamp": "2026-10-19T17:27:46Z",
+    "hookStatus": {},
+    "phase": "Completed",
+    "progress": {
+      "itemsRestored": 11,
+      "totalItems": 11
+    },
+    "startTimestamp": "2026-10-19T17:27:41Z",
+    "warnings": 2
+  }
+}

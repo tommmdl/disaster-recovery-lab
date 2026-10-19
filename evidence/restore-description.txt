@@ -1,0 +1,77 @@
+Name:         cross-cluster-90e0bb82
+Namespace:    velero
+Labels:       <none>
+Annotations:  <none>
+
+Phase:                       Completed
+Total items to be restored:  11
+Items restored:              11
+
+Started:    2026-10-19 14:27:41 -0300 -03
+Completed:  2026-10-19 14:27:46 -0300 -03
+
+Warnings:
+  Velero:     <none>
+  Cluster:  stat /tmp/3694330724/resources/persistentvolumes/cluster/backup-restore-backup-demo.json: no such file or directory
+  Namespaces:
+    dr-notes:  could not restore, ConfigMap:kube-root-ca.crt already exists. Warning: the in-cluster version is different than the backed-up version
+
+Backup:  notes-good-82d760ba
+
+Namespaces:
+  Included:  all namespaces found in the backup
+  Excluded:  <none>
+
+Resources:
+  Included:        *
+  Excluded:        nodes, events, events.events.k8s.io, backups.velero.io, restores.velero.io, resticrepositories.velero.io, csinodes.storage.k8s.io, volumeattachments.storage.k8s.io, backuprepositories.velero.io
+  Cluster-scoped:  excluded
+
+Namespace mappings:  backup-demo=dr-notes
+
+Label selector:  <none>
+
+Or label selector:  <none>
+
+Restore PVs:  auto
+
+kopia Restores:
+  Completed:
+    dr-notes/backup-client: dump (size: 2551)
+
+CSI Snapshot Restores: <none included>
+
+Existing Resource Policy:   <none>
+ItemOperationTimeout:       5m0s
+
+Preserve Service NodePorts:  auto
+
+Resource modifier:
+  Type:  configmap
+  Name:  dr-restore-modifiers
+
+Uploader config:
+
+
+HooksAttempted:   0
+HooksFailed:      0
+
+Resource List:
+  apps/v1/Deployment:
+    - dr-notes/notes-api(created)
+  apps/v1/StatefulSet:
+    - dr-notes/postgres-alpine(created)
+  v1/ConfigMap:
+    - dr-notes/database-scripts(created)
+    - dr-notes/kube-root-ca.crt(failed)
+    - dr-notes/notes-config(created)
+  v1/PersistentVolumeClaim:
+    - dr-notes/logical-backup(created)
+  v1/Pod:
+    - dr-notes/backup-client(created)
+  v1/Secret:
+    - dr-notes/notes-db(created)
+  v1/Service:
+    - dr-notes/notes-api(created)
+    - dr-notes/postgres(created)
+    - dr-notes/postgres-alpine-headless(created)

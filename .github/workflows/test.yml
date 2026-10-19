@@ -1,0 +1,83 @@
+name: Recupera a aplicação em um segundo cluster
+on:
+  push:
+    branches: [main]
+    paths: ['cluster/**', 'config/**', 'scripts/**', 'tests/**', '.github/workflows/**']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  disaster-recovery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          path: disaster-recovery-lab
+          persist-credentials: false
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: tommmdl/kubernetes-lab
+          ref: 457f8b92a40c55aa05c2f3c75b8972c1c8f84ed4
+          path: kubernetes-lab
+          persist-credentials: false
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: tommmdl/backup-restore-lab
+          ref: ff6f6a6898c79775325248ef9c453f054f14061b
+          path: backup-restore-lab
+          persist-credentials: false
+      - name: Prepara o cluster de origem descartável
+        working-directory: kubernetes-lab
+        run: |
+          bash scripts/prepare.sh
+          bash scripts/lab.sh up
+      - name: Cria e valida um backup real no S3 externo aos nós
+        working-directory: backup-restore-lab
+        run: |
+          bash scripts/lab.sh up
+          python3 tests/verify.py
+      - name: Guarda o kit e cria um cluster independente
+        working-directory: disaster-recovery-lab
+        run: |
+          sudo sysctl -w fs.inotify.max_user_instances=512
+          bash scripts/lab.sh kit
+          bash scripts/lab.sh create-target
+      - name: Recupera com a origem indisponível e a API bloqueada a partir do destino
+        working-directory: disaster-recovery-lab
+        run: python3 tests/verify.py
+      - name: Guarda diagnóstico sem credenciais ou dados de referência
+        if: always()
+        working-directory: disaster-recovery-lab
+        run: |
+          mkdir -p .local
+          {
+            bash scripts/k.sh get nodes
+            bash scripts/k.sh get deploy,sts,pods,pvc
+            bash scripts/k.sh -n velero get backupstoragelocations,backups,restores,podvolumerestores
+            bash scripts/k.sh -n velero logs deployment/velero --tail=100
+          } > .local/diagnostics.log 2>&1 || true
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: disaster-recovery-results
+          path: |
+            disaster-recovery-lab/.local/verification.json
+            disaster-recovery-lab/.local/imported-backup.json
+            disaster-recovery-lab/.local/restore.json
+            disaster-recovery-lab/.local/pod-volume-restores.json
+            disaster-recovery-lab/.local/restore-description.json
+            disaster-recovery-lab/.local/source-recovery-result.json
+            disaster-recovery-lab/.local/diagnostics.log
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Remove apenas os ambientes descartáveis do runner
+        if: always()
+        run: |
+          if [ -f disaster-recovery-lab/.local/cluster-owned ]; then bash disaster-recovery-lab/scripts/lab.sh down; fi
+          if [ -f kubernetes-lab/.local/cluster-owned ]; then bash kubernetes-lab/scripts/lab.sh down; fi
+          docker rm -f backup-restore-s3 || true
+          docker volume rm backup-restore-s3-data || true

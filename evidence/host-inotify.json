@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-10-19T17:24:47.595149+00:00",
+  "symptom": "Fresh kind node systemd failed: Failed to create control group inotify object: Too many open files",
+  "parameter": "fs.inotify.max_user_instances",
+  "before": 128,
+  "after": 512,
+  "scope": "Runtime-only shared Docker/WSL kernel setting; no sysctl configuration file changed and no existing lab restarted",
+  "reference": "https://kind.sigs.k8s.io/docs/user/known-issues/#pod-errors-due-to-too-many-open-files"
+}
