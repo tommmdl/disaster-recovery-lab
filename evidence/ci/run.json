@@ -1,0 +1,10 @@
+{
+  "url": "https://github.com/tommmdl/disaster-recovery-lab/actions/runs/39295149820",
+  "tested_commit": "e76b639",
+  "result": "success",
+  "checks_passed": 32,
+  "suite_seconds": 184,
+  "recovery_to_ready_seconds": 92,
+  "restore_warnings": 2,
+  "scope": "Both clusters created on a disposable runner. A real backup is generated and validated before the cross-cluster source-unavailability exercise. Same-host simulation, not regional failure."
+}

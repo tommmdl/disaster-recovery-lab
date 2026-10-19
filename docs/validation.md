@@ -25,3 +25,9 @@ O segundo aviso registra que kube-root-ca.crt já existe e difere do backup. Em 
 A origem não foi destruída. Interrompemos só os componentes do ambiente de backup e bloqueamos a API de origem dentro do nó de destino. O cluster principal permaneceu operando; não declaramos um teste de perda total do host ou failover de tráfego. O armazenamento S3 é comum e fica no mesmo computador.
 
 A primeira criação do destino falhou porque systemd não conseguia criar uma instância inotify. Aumentamos o limite de 128 para 512 em runtime e repetimos a criação. O [registro do ajuste](../evidence/host-inotify.json) preserva o motivo e o escopo; não houve reinício dos labs antigos.
+
+## Repetição no GitHub Actions
+
+O [pipeline](https://github.com/tommmdl/disaster-recovery-lab/actions/runs/39295149820) também passou nos **32 testes**, depois de criar os dois clusters e gerar um backup real no runner. O backup-restore-lab passou antes nos seus 25 testes para preparar esse ponto de recuperação. A suíte entre clusters levou 184 segundos; o intervalo entre instalar o Velero e a API recuperada ficar pronta foi 92 segundos, sem incluir criar clusters ou capturar o kit.
+
+O runner recuperou três notas, com quatro na origem no momento da falha. Os números locais sete/oito incluem notas controladas mantidas do ensaio anterior. O restore terminou Completed, com zero erros e os mesmos dois avisos. A origem retornou sem erros de recuperação. [Relatório do runner](../evidence/ci/verification.json) · [Restore](../evidence/ci/restore.json) · [Avisos](../evidence/ci/restore-description.txt) · [Retorno da origem](../evidence/ci/source-recovery-result.json).

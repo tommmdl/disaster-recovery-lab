@@ -25,3 +25,9 @@ The other warning reports an existing kube-root-ca.crt that differs from backup.
 The source cluster was not destroyed. Only the backup study components were stopped, and its API was fenced inside the destination node. The main cluster remained operational; this does not claim whole-host loss or traffic failover testing. Shared S3 storage sits on the same computer.
 
 Initial target creation failed because systemd could not create an inotify instance. We raised the runtime limit from 128 to 512 and repeated creation. The [adjustment record](../evidence/host-inotify.json) retains the reason and scope; existing labs were not restarted.
+
+## GitHub Actions repeat
+
+The [workflow](https://github.com/tommmdl/disaster-recovery-lab/actions/runs/39295149820) also passed **32 checks** after creating both clusters and generating a real backup on the runner. backup-restore-lab first passed its 25 checks to prepare that recovery point. The cross-cluster suite took 184 seconds; target Velero installation to recovered API readiness took 92 seconds, excluding cluster creation and kit capture.
+
+The runner recovered three notes while four existed at source at failure time. Local seven/eight counts include controlled notes retained from the earlier rehearsal. Restore finished Completed with zero errors and the same two warnings. Source recovery reported no errors. [Runner report](../evidence/ci/verification.json) · [Restore](../evidence/ci/restore.json) · [Warnings](../evidence/ci/restore-description.txt) · [Source restoration](../evidence/ci/source-recovery-result.json).

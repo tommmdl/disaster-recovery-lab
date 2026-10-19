@@ -1,0 +1,20 @@
+{
+  "executed_at_utc": "2026-10-19T17:36:35.360389+00:00",
+  "main_application_ready": true,
+  "main_argocd_sync": "Synced",
+  "main_argocd_health": "Healthy",
+  "main_argocd_policy": {
+    "prune": false,
+    "selfHeal": true
+  },
+  "source_sample_ready": true,
+  "source_note_count": 8,
+  "source_replica_counts_restored": true,
+  "source_database_pvc_preserved": true,
+  "target_ready": true,
+  "target_note_count": 7,
+  "target_matches_backed_up_note_fields": true,
+  "target_storage_access_mode": "ReadOnly",
+  "temporary_target_firewall_rules_removed": true,
+  "scope": "Read-only final verification on both clusters after the local rehearsal. Source sample and target retained separately; no traffic cutover or data merge."
+}

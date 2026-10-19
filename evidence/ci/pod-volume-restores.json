@@ -1,0 +1,59 @@
+[
+  {
+    "apiVersion": "velero.io/v1",
+    "kind": "PodVolumeRestore",
+    "metadata": {
+      "creationTimestamp": "2026-10-19T17:38:06Z",
+      "generateName": "cross-cluster-029c0ac9-",
+      "generation": 6,
+      "labels": {
+        "velero.io/pod-uid": "4cb96c9b-25bb-4125-9012-916e2a08cfd5",
+        "velero.io/pvc-uid": "2747a53f-9d6f-455e-8757-c40201a8a978",
+        "velero.io/restore-name": "cross-cluster-029c0ac9",
+        "velero.io/restore-uid": "5cb85fe3-d474-4650-8e4a-f4958494618f"
+      },
+      "name": "cross-cluster-029c0ac9-h2w2h",
+      "namespace": "velero",
+      "ownerReferences": [
+        {
+          "apiVersion": "velero.io/v1",
+          "controller": true,
+          "kind": "Restore",
+          "name": "cross-cluster-029c0ac9",
+          "uid": "5cb85fe3-d474-4650-8e4a-f4958494618f"
+        }
+      ],
+      "resourceVersion": "881",
+      "uid": "abf09768-b4e3-4812-a55a-3cc9bebdd17b"
+    },
+    "spec": {
+      "backupStorageLocation": "default",
+      "pod": {
+        "kind": "Pod",
+        "name": "backup-client",
+        "namespace": "dr-notes",
+        "uid": "4cb96c9b-25bb-4125-9012-916e2a08cfd5"
+      },
+      "repoIdentifier": "",
+      "snapshotID": "b3b13068cf7063a33625aa808e211930",
+      "snapshotSize": 2460,
+      "sourceNamespace": "backup-demo",
+      "uploaderSettings": {
+        "WriteSparseFiles": "false"
+      },
+      "uploaderType": "kopia",
+      "volume": "dump"
+    },
+    "status": {
+      "acceptedTimestamp": "2026-10-19T17:38:07Z",
+      "completionTimestamp": "2026-10-19T17:38:10Z",
+      "node": "devops-recovery-control-plane",
+      "phase": "Completed",
+      "progress": {
+        "bytesDone": 2460,
+        "totalBytes": 2460
+      },
+      "startTimestamp": "2026-10-19T17:38:07Z"
+    }
+  }
+]
